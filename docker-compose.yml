@@ -1,0 +1,24 @@
+# Runs the Streamz app in a container for a quick local check, without
+# touching your Node install at all.
+#
+#   docker compose up --build        # build + start on http://localhost:3100
+#   docker compose down              # stop and remove
+#
+# Host port is 3100 (not the container's internal 3000) for the same reason
+# server.js defaults to 3100 locally - avoids clashing with whatever else on
+# the machine might already be listening on 3000.
+services:
+  app:
+    build: .
+    image: streamz:local
+    container_name: streamz
+    ports:
+      - "3100:3000"
+    environment:
+      - PORT=3000
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped

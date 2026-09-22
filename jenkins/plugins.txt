@@ -1,0 +1,6 @@
+# Plugins the Streamz pipeline needs. Installed at image-build time.
+workflow-aggregator      # Pipeline (declarative + scripted)
+git                      # Git SCM
+github                   # GitHub integration + webhook trigger (githubPush)
+github-branch-source     # Multibranch / GitHub source (optional but handy)
+docker-workflow          # docker.* pipeline helpers (and good to have installed)

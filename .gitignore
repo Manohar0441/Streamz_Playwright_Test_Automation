@@ -1,0 +1,8 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Test output
+test-results/
+playwright-report/
+playwright/.cache/

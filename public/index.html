@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streamz</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <!-- Entry point. Sends signed-in users to /browse, everyone else to /login. -->
+  <script type="module">
+    import { session } from '/assets/api.js';
+    location.replace(session.token ? '/browse.html' : '/login.html');
+  </script>
+  <noscript>
+    <div class="auth-wrap"><div class="auth-card">
+      <h1>JavaScript required</h1>
+      <p class="sub">Enable JavaScript, then open <a href="/login.html">the login page</a>.</p>
+    </div></div>
+  </noscript>
+</body>
+</html>

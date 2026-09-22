@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Streamz</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand"><span class="dot">●</span> Streamz</div>
+      <h1>Sign in</h1>
+      <p class="sub">Welcome back. Sign in to keep watching.</p>
+
+      <!-- Form-level error (e.g. wrong credentials → 401). role=alert so it is
+           announced and easy to target in tests. -->
+      <div class="form-error" id="formError" role="alert" data-testid="login-error" hidden></div>
+
+      <form id="loginForm" novalidate data-testid="login-form">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="username"
+                 data-testid="email" placeholder="you@streamz.test" />
+          <div class="field-error" id="emailError" data-testid="email-error"></div>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password"
+                 data-testid="password" placeholder="••••••••" />
+          <div class="field-error" id="passwordError" data-testid="password-error"></div>
+        </div>
+
+        <button class="btn btn-primary submit" type="submit" id="submitBtn" data-testid="submit">
+          Sign in
+        </button>
+      </form>
+
+      <div class="hint">
+        Demo account —<br />
+        <code>qa@streamz.test</code> / <code>Test@123</code>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/assets/login.js"></script>
+</body>
+</html>

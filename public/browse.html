@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse · Streamz</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/browse.html"><span class="dot">●</span> Streamz</a>
+    <div class="spacer"></div>
+    <input class="search" id="search" type="search" placeholder="Search titles or genres…"
+           aria-label="Search titles" data-testid="search" />
+    <div class="user-menu">
+      <div class="avatar" id="avatar" data-testid="avatar">?</div>
+      <span class="user-name" id="userName" data-testid="user-name"></span>
+      <button class="btn btn-ghost" id="logoutBtn" type="button" data-testid="logout">Sign out</button>
+    </div>
+  </header>
+
+  <main class="browse">
+    <!-- "Continue watching" only appears when the user has saved progress. -->
+    <section id="continueSection" hidden>
+      <h2 class="row-title">Continue watching</h2>
+      <div class="grid" id="continueGrid" data-testid="continue-grid"></div>
+    </section>
+
+    <h2 class="row-title" id="catalogHeading">Browse all</h2>
+    <div class="grid" id="catalogGrid" data-testid="catalog-grid"></div>
+    <div class="empty" id="emptyState" data-testid="empty-state" hidden>No titles match your search.</div>
+  </main>
+
+  <script type="module" src="/assets/browse.js"></script>
+</body>
+</html>

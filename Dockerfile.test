@@ -1,0 +1,23 @@
+# ============================================================================
+# Dockerfile.test — the image that RUNS the Playwright suite
+# ----------------------------------------------------------------------------
+# Built and run by Jenkins. It bakes the specs + Playwright browsers into one
+# image, so the test stage needs no bind-mounts (which are unreliable when
+# Jenkins itself runs in a container via the Docker socket). Artifacts are pulled
+# out afterwards with `docker cp` (see the Jenkinsfile).
+#
+# The base image tag MUST match @playwright/test in package.json (browsers vs
+# library), currently v1.61.0.
+# ============================================================================
+FROM mcr.microsoft.com/playwright:v1.61.0-jammy
+
+WORKDIR /work
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Default: run every project. BASE_URL (set at `docker run`) points the suite at
+# the app-under-test container and disables the config's webServer.
+CMD ["npx", "playwright", "test"]

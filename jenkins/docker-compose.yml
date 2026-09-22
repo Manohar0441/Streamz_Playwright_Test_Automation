@@ -1,0 +1,28 @@
+# ============================================================================
+# jenkins/docker-compose.yml — run Jenkins locally for the Streamz pipeline
+# ----------------------------------------------------------------------------
+#   cd jenkins
+#   docker compose up -d --build      # build the image + start Jenkins
+#   open http://localhost:8080
+#
+# The mounted Docker socket lets pipeline stages run `docker ...` against your
+# host's Docker daemon. `user: root` is a local-only convenience so Jenkins can
+# read that socket without group-permission fiddling. Do NOT use this layout on
+# a shared/production server.
+# ============================================================================
+services:
+  jenkins:
+    build: .
+    image: streamz-jenkins:local
+    container_name: streamz-jenkins
+    user: root
+    ports:
+      - "8080:8080"     # web UI
+      - "50000:50000"   # agent port (unused here, but standard)
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:

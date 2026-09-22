@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Player · Streamz</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/browse.html"><span class="dot">●</span> Streamz</a>
+    <div class="spacer"></div>
+    <div class="user-menu">
+      <div class="avatar" id="avatar" data-testid="avatar">?</div>
+      <button class="btn btn-ghost" id="logoutBtn" type="button" data-testid="logout">Sign out</button>
+    </div>
+  </header>
+
+  <main class="player-page">
+    <a class="back-link" href="/browse.html" data-testid="back">← Back to browse</a>
+
+    <!-- data-state is the single source of truth for the player's status and the
+         easiest thing to assert on: idle | buffering | playing | paused | ended | error -->
+    <div class="stage" id="player" data-state="loading" data-testid="player">
+      <canvas id="canvas" width="960" height="540" aria-hidden="true"></canvas>
+
+      <!-- Live captions (only when the title has captions and they're enabled) -->
+      <div class="captions-box" id="captions" data-testid="captions-box" hidden></div>
+
+      <!-- Buffering / loading -->
+      <div class="overlay" id="loadingOverlay" data-testid="loading-overlay">
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Initial "press play" -->
+      <div class="overlay" id="startOverlay" data-testid="start-overlay" hidden>
+        <button class="big-play" id="bigPlay" type="button" aria-label="Play" data-testid="big-play">▶</button>
+      </div>
+
+      <!-- Ended -->
+      <div class="overlay" id="endedOverlay" data-testid="ended-overlay" hidden>
+        <div>
+          <h3>You're all caught up</h3>
+          <p>That's the end of this title.</p>
+          <button class="btn btn-primary" id="replayBtn" type="button" data-testid="replay">Replay</button>
+        </div>
+      </div>
+
+      <!-- Error (404 / 451 / network) -->
+      <div class="overlay" id="errorOverlay" data-testid="error-overlay" hidden>
+        <div>
+          <h3 id="errorTitle">Can't play this title</h3>
+          <p id="errorMessage"></p>
+          <a class="btn btn-primary" href="/browse.html" data-testid="error-back">Back to browse</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== CONTROLS ===================== -->
+    <div class="controls" id="controls">
+      <div class="seekrow">
+        <span class="time" id="currentTime" data-testid="time-current">0:00</span>
+        <input type="range" class="seek" id="seek" min="0" max="100" value="0" step="1"
+               aria-label="Seek" data-testid="seek" />
+        <span class="time right" id="durationTime" data-testid="time-duration">0:00</span>
+      </div>
+
+      <div class="btnrow">
+        <div class="group">
+          <button class="ctrl" id="rewindBtn" type="button" aria-label="Rewind 10 seconds" data-testid="rewind">« 10</button>
+          <button class="ctrl play" id="playPause" type="button" aria-label="Play" aria-pressed="false" data-testid="play-pause">▶</button>
+          <button class="ctrl" id="forwardBtn" type="button" aria-label="Forward 10 seconds" data-testid="forward">10 »</button>
+        </div>
+
+        <div class="group right">
+          <span class="state-pill" id="statePill" data-testid="state-pill">LOADING</span>
+          <button class="ctrl" id="captionsBtn" type="button" aria-label="Captions"
+                  aria-pressed="false" data-testid="captions-toggle" title="Captions">CC</button>
+          <select class="select" id="quality" aria-label="Quality" data-testid="quality"></select>
+          <button class="ctrl" id="muteBtn" type="button" aria-label="Mute"
+                  aria-pressed="false" data-testid="mute" title="Mute">🔊</button>
+          <input type="range" class="volume" id="volume" min="0" max="100" value="100"
+                 aria-label="Volume" data-testid="volume" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TITLE META ===================== -->
+    <div class="title-meta">
+      <h1 id="titleName" data-testid="title-name">Loading…</h1>
+      <div class="meta-line" id="metaLine" data-testid="meta-line"></div>
+      <p class="synopsis" id="synopsis" data-testid="synopsis"></p>
+    </div>
+  </main>
+
+  <script type="module" src="/assets/player.js"></script>
+</body>
+</html>

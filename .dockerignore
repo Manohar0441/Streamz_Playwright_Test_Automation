@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+test-results
+playwright-report
+playwright/.cache
+.git
+.gitignore
+Jenkinsfile
+jenkins
+*.md
